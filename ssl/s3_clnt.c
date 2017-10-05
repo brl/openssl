@@ -1876,6 +1876,7 @@ int ssl3_get_key_exchange(SSL *s)
 #endif
         s->session->sess_cert->peer_oqskex_msg_tmp = srvr_oqskex_msg;
         s->session->sess_cert->peer_oqskex_msg_len_tmp = srvr_oqskex_msg_len;
+        srvr_oqskex_msg = NULL;
     }
 #endif                          /* !OPENSSL_NO_OQSKEX */
 
@@ -1996,6 +1997,7 @@ int ssl3_get_key_exchange(SSL *s)
 
             s->session->sess_cert->peer_oqskex_msg_tmp = srvr_oqskex_msg;
             s->session->sess_cert->peer_oqskex_msg_len_tmp = srvr_oqskex_msg_len;
+            srvr_oqskex_msg = NULL;
         }
 #endif
 
@@ -2165,10 +2167,6 @@ int ssl3_get_key_exchange(SSL *s)
     EC_POINT_free(srvr_ecpoint);
     if (ecdh != NULL)
         EC_KEY_free(ecdh);
-#endif
-#ifndef OPENSSL_NO_OQSKEX
-    if (srvr_oqskex_msg != NULL)
-        free(srvr_oqskex_msg);
 #endif
     EVP_MD_CTX_cleanup(&md_ctx);
     s->state = SSL_ST_ERR;
