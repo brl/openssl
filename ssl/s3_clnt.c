@@ -3091,6 +3091,8 @@ int ssl3_send_client_key_exchange(SSL *s)
                 }
 
                 if (OQS_KEX_bob(oqskex_kex, srvr_oqskex_msg, srvr_oqskex_msg_len, &clnt_oqskex_msg, &clnt_oqskex_msg_len, &pprime_oqskex, &nprime_oqskex) != 1) {
+                    clnt_oqskex_msg = NULL;
+                    pprime_oqskex = NULL;
                     SSLerr(SSL_F_SSL3_SEND_CLIENT_KEY_EXCHANGE, ERR_R_INTERNAL_ERROR);
                     goto err;
                 }
@@ -3231,6 +3233,8 @@ int ssl3_send_client_key_exchange(SSL *s)
             }
 
             if (OQS_KEX_bob(oqskex_kex, srvr_oqskex_msg, srvr_oqskex_msg_len, &clnt_oqskex_msg, &clnt_oqskex_msg_len, &pprime_oqskex, &nprime_oqskex) != 1) {
+                clnt_oqskex_msg = NULL;
+                pprime_oqskex = NULL;
                 SSLerr(SSL_F_SSL3_SEND_CLIENT_KEY_EXCHANGE, ERR_R_INTERNAL_ERROR);
                 goto err;
             }

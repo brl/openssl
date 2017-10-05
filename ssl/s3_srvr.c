@@ -1892,6 +1892,7 @@ int ssl3_send_server_key_exchange(SSL *s)
                 }
 
                 if (OQS_KEX_alice_0(s->s3->tmp.oqskex_kex, &(s->s3->tmp.oqskex_priv), &oqskex_srvr_msg, &oqskex_srvr_msg_len) != 1) {
+                    oqskex_srvr_msg = NULL;
                     SSLerr(SSL_F_SSL3_SEND_SERVER_KEY_EXCHANGE,ERR_R_INTERNAL_ERROR);
                     goto err;
                 }
@@ -1947,6 +1948,7 @@ int ssl3_send_server_key_exchange(SSL *s)
             }
 
             if (OQS_KEX_alice_0(s->s3->tmp.oqskex_kex, &(s->s3->tmp.oqskex_priv), &oqskex_srvr_msg, &oqskex_srvr_msg_len) != 1) {
+                oqskex_srvr_msg = NULL;
                 SSLerr(SSL_F_SSL3_SEND_SERVER_KEY_EXCHANGE,ERR_R_INTERNAL_ERROR);
                 goto err;
             }
