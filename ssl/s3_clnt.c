@@ -1839,6 +1839,11 @@ int ssl3_get_key_exchange(SSL *s)
 #ifndef OPENSSL_NO_OQSKEX
     else if (((alg_k & SSL_kOQSKEX_GENERIC) || (alg_k & SSL_kOQSKEX_RLWE_BCNS15) || (alg_k & SSL_kOQSKEX_RLWE_NEWHOPE) || (alg_k & SSL_kOQSKEX_RLWE_MSRLN16) || (alg_k & SSL_kOQSKEX_LWE_FRODO_RECOMMENDED) || (alg_k & SSL_kOQSKEX_SIDH_CLN16)) && !(alg_k & SSL_kEECDH)) {
         /* Get the OQSKEX message */
+        if (n < 2) {
+            al=SSL_AD_DECODE_ERROR;
+            SSLerr(SSL_F_SSL3_GET_KEY_EXCHANGE,SSL_R_BAD_LENGTH);
+            goto f_err;
+        }
         srvr_oqskex_msg_len = (p[0] << 8) | p[1];
         p += 2;
         n -= 2;
@@ -1964,6 +1969,11 @@ int ssl3_get_key_exchange(SSL *s)
 #ifndef OPENSSL_NO_HYBRID_OQSKEX_ECDHE
         if ((alg_k & SSL_kOQSKEX_GENERIC) || (alg_k & SSL_kOQSKEX_RLWE_BCNS15) || (alg_k & SSL_kOQSKEX_RLWE_NEWHOPE) || (alg_k & SSL_kOQSKEX_RLWE_MSRLN16) || (alg_k & SSL_kOQSKEX_LWE_FRODO_RECOMMENDED) || (alg_k & SSL_kOQSKEX_SIDH_CLN16)) {
             /* Get the OQSKEX message */
+            if (n < 2) {
+                al=SSL_AD_DECODE_ERROR;
+                SSLerr(SSL_F_SSL3_GET_KEY_EXCHANGE,SSL_R_BAD_LENGTH);
+                goto f_err;
+            }
             srvr_oqskex_msg_len = (p[0] << 8) | p[1];
             p += 2;
             n -= 2;
