@@ -1853,7 +1853,7 @@ int ssl3_get_key_exchange(SSL *s)
             SSLerr(SSL_F_SSL3_GET_KEY_EXCHANGE,SSL_R_BAD_LENGTH);
             goto f_err;
         }
-        if ((srvr_oqskex_msg = malloc(srvr_oqskex_msg_len)) == NULL) {
+        if ((srvr_oqskex_msg = OPENSSL_malloc(srvr_oqskex_msg_len)) == NULL) {
             SSLerr(SSL_F_SSL3_GET_KEY_EXCHANGE,ERR_R_MALLOC_FAILURE);
             goto err;
         }
@@ -1984,7 +1984,7 @@ int ssl3_get_key_exchange(SSL *s)
                 SSLerr(SSL_F_SSL3_GET_KEY_EXCHANGE,SSL_R_BAD_LENGTH);
                 goto f_err;
             }
-            if ((srvr_oqskex_msg = malloc(srvr_oqskex_msg_len)) == NULL) {
+            if ((srvr_oqskex_msg = OPENSSL_malloc(srvr_oqskex_msg_len)) == NULL) {
                 SSLerr(SSL_F_SSL3_GET_KEY_EXCHANGE,ERR_R_MALLOC_FAILURE);
                 goto err;
             }

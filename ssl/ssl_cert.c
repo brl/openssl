@@ -696,6 +696,10 @@ void ssl_sess_cert_free(SESS_CERT *sc)
     if (sc->peer_ecdh_tmp != NULL)
         EC_KEY_free(sc->peer_ecdh_tmp);
 #endif
+#ifndef OPENSSL_NO_OQSKEX
+    if (sc->peer_oqskex_msg_tmp != NULL)
+        OPENSSL_free(sc->peer_oqskex_msg_tmp);
+#endif
 
     OPENSSL_free(sc);
 }
