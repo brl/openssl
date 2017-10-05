@@ -3098,7 +3098,6 @@ int ssl3_send_client_key_exchange(SSL *s)
                 // FIXME: I have no idea if this is safe, as I don't know how big p is, but let's try it anyway for testing purposes.
                 memcpy(p + n, pprime_oqskex, nprime_oqskex);
                 n += nprime_oqskex;
-                OPENSSL_free(pprime_oqskex);
             }
 #endif
 
@@ -3163,6 +3162,7 @@ int ssl3_send_client_key_exchange(SSL *s)
                 n += 2 + clnt_oqskex_msg_len;
 
                 /* Free allocated memory */
+                OPENSSL_free(pprime_oqskex);
                 OPENSSL_free(clnt_oqskex_msg);
                 OQS_KEX_free(oqskex_kex);
                 OQS_RAND_free(oqskex_rand);
